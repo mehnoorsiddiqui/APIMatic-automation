@@ -1,0 +1,267 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "APIMATIC Calculator",
+    "description": "Simple calculator API hosted on APIMATIC - Chubb demo",
+    "contact": {},
+    "version": "1.0",
+    "x-codegen-settings": {
+      "Nullify404": false,
+      "GenerateAsyncCode": true,
+      "UseMethodPrefix": true,
+      "UseModelPostfix": false,
+      "UseControllerPrefix": true,
+      "UseEnumPostfix": true,
+      "CollectParameters": true,
+      "UseConstructorsForConfig": true,
+      "UseCommonSDKLibrary": false,
+      "iOSUseAppInfoPlist": true,
+      "AndroidUseAppManifest": true,
+      "BodySerialization": 0,
+      "EnableAdditionalModelProperties": false,
+      "PreserveParameterOrder": true,
+      "AppendContentHeaders": true,
+      "iOSGenerateCoreData": false,
+      "GenerateInterfaces": false,
+      "NodeHttpClient": "NODE_REQUEST",
+      "ValidateRequiredParameters": false,
+      "JavaUsePropertiesConfig": false,
+      "Timeout": 0.0,
+      "StoreTimezoneInformation": false,
+      "EnablePHPComposerVersionString": false,
+      "EnableLogging": false,
+      "ArraySerialization": "Indexed",
+      "ModelSerializationScheme": "Json",
+      "UseExceptionPrefix": true,
+      "RunscopeEnabled": false,
+      "AndroidHttpClient": "UNIREST",
+      "ObjCHttpClient": "UNIREST",
+      "CSharpHttpClient": "UNIREST",
+      "PHPHttpClient": "UNIREST",
+      "JavaHttpClient": "JAVA_OK",
+      "ParameterArrayFormat": "ParamArrayWithIndex",
+      "SecurityProtocols": [
+        "Ssl3",
+        "Tls"
+      ],
+      "GenerateTravisConfig": true,
+      "GenerateCircleConfig": false,
+      "GenerateAppveyorConfig": false,
+      "GenerateJenkinsConfig": false,
+      "EnableHttpCache": false,
+      "Retries": 0,
+      "RetryInterval": 1.0,
+      "GenerateAdvancedDocs": true,
+      "UnderscoreNumbers": true,
+      "UseSingletonPattern": true,
+      "DisableLinting": false,
+      "ApplyCustomizations": [],
+      "SortResources": false,
+      "AllowSkippingSSLCertVerification": false,
+      "DoNotSplitWords": [],
+      "EnableGlobalUserAgent": true,
+      "ReturnCompleteHttpResponse": false,
+      "GenerateModels": true,
+      "GenerateExceptions": true,
+      "IgnoreIfNullJson": false,
+      "DisableDocs": false,
+      "LiftParameterDescriptionFromCustomType": false,
+      "ThrowForHttpErrorStatusCodes": true,
+      "ResponseMapping": {
+        "Type": "Simple"
+      },
+      "ForceKeywordArgsInRuby": false,
+      "SymbolizeHashKeysInRuby": false,
+      "UsageExampleEndpoint": {
+        "Description": "",
+        "EndpointGroupName": "",
+        "EndpointName": ""
+      },
+      "IsLatestVersion": false,
+      "EnableImmutableModels": false,
+      "GenerateEnums": true,
+      "BackoffFactor": 2.0,
+      "StatusCodesToRetry": [
+        408,
+        413,
+        429,
+        500,
+        502,
+        503,
+        504,
+        521,
+        522,
+        524
+      ],
+      "RequestMethodsToRetry": [
+        "GET",
+        "PUT"
+      ],
+      "UserConfigurableRetries": true,
+      "UseEndpointMethodName": false,
+      "EncodeTemplateParameters": true,
+      "GenerateExamplesForOptionalFields": false,
+      "MultitargetDotnetVersions": false,
+      "BackoffMax": 0.0,
+      "RetryOnTimeout": true,
+      "EnableCookies": false,
+      "EnableJsonPassThroughForAny": false
+    },
+    "x-server-configuration": {
+      "default-environment": "production",
+      "default-server": "Calculator",
+      "environments": [
+        {
+          "name": "production",
+          "description": "This environment connect to the LIVE calculator API",
+          "servers": [
+            {
+              "name": "Calculator",
+              "url": "https://examples.apimatic.io/apps/calculator"
+            }
+          ]
+        }
+      ],
+      "parameters": []
+    },
+    "x-image-uri": "https://apimatic.io/img/example-apps/Calculator.svg"
+  },
+  "servers": [
+    {
+      "url": "https://examples.apimatic.io/apps/calculator",
+      "description": "This environment connect to the LIVE calculator API",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/{operation}": {
+      "get": {
+        "tags": [
+          "Simple Calculator"
+        ],
+        "summary": "Calculate",
+        "description": "Calculates the expression using the specified operation.",
+        "operationId": "Calculate",
+        "parameters": [
+          {
+            "name": "operation",
+            "in": "path",
+            "description": "The operator to apply on the variables",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/OperationType"
+            }
+          },
+          {
+            "name": "x",
+            "in": "query",
+            "description": "The LHS value",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "y",
+            "in": "query",
+            "description": "The RHS value",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/MULTIPLY?x=4&y=5"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NATIVE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "statusCode": "200",
+              "headers": {},
+              "body": "20"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "multiply",
+            "x-testDescription": "Check if multiplication works"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OperationType": {
+        "title": "OperationType",
+        "enum": [
+          "SUM",
+          "SUBTRACT",
+          "MULTIPLY",
+          "DIVIDE"
+        ],
+        "type": "string",
+        "description": "Possible operators are sum, subtract, multiply, divide",
+        "example": "SUM",
+        "x-enum-elements": [
+          {
+            "name": "SUM",
+            "description": "Represents the sum operator"
+          },
+          {
+            "name": "SUBTRACT",
+            "description": "Represents the subtract operator"
+          },
+          {
+            "name": "MULTIPLY",
+            "description": "Represents the multiply operator"
+          },
+          {
+            "name": "DIVIDE",
+            "description": "Represents the divide operator"
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Simple Calculator",
+      "description": ""
+    }
+  ]
+}

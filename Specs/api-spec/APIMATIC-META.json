@@ -1,0 +1,7 @@
+{
+    "ImportSettings": {
+        "PreferJsonSchemaNameOverTitle": true,
+        "AppendParentNameForClashes": true,
+        "AllowModelTypesWithNoFields": true
+    }
+}

@@ -1,0 +1,82 @@
+name: Update Portal
+
+on:
+  push:
+    branches: 
+      - main
+      
+  workflow_dispatch:
+
+jobs:
+  update-portal:
+    runs-on: ubuntu-latest
+    
+    env: 
+      API_ENTITY_ID: 6162a594d8005a53fc3ea1e0 
+    steps:
+    
+    - name : checkout-repo
+      uses: actions/checkout@v2
+      with:
+          ref: 'main'
+      id: checkout-repo 
+     
+
+    - name: Install zip action
+      uses: montudor/action-zip@v0.1.1    
+      
+    - name: install zip 
+      run: sudo apt-get install zip unzip
+      
+    - name: zip files
+      run: zip -r portal-input.zip *
+      working-directory: Specs
+
+    - name: list
+      run: zip -sf portal-input.zip
+      working-directory: Specs
+
+    - name: inplace-import
+      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@Specs/portal-input.zip'
+      
+    - name: publish-portal
+      run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:${{ secrets.CREDENTIALS }}'
+      
+    - name: publish-pypi
+      run: >-
+       curl -X POST
+       --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/published-packages/'
+       -H 'Authorization:${{ secrets.CREDENTIALS }}'
+       -H 'Accept: application/json'
+       -H 'Content-type: application/json'
+       --data-raw '{
+       "packageRepository": "PyPI",
+       "template": "PYTHON_GENERIC_LIB",
+       "packageName": "automation-test",
+       "version": "1.${{ github.run_number }}",
+       "additionalDeploymentInformation": {}
+       }'
+       
+    - name: publish-rubygem
+      run: >-
+       curl -X POST \
+       --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/published-packages/'
+       -H 'Authorization:${{ secrets.CREDENTIALS }}'
+       -H 'Accept: application/json'
+       -H 'Content-type: application/json'
+       --data-raw '{
+       "packageRepository": "RubyGems",
+       "template": "RUBY_GENERIC_LIB",
+       "packageName": "automation-test",
+       "version": "1.${{ github.run_number }}",
+       "additionalDeploymentInformation": {}
+       }'
+       
+    - name: publish-sdk
+      run : >-
+        curl 'https://www.apimatic.io/api/GitDeploy/Deploy'
+        -H 'Authorization:${{ secrets.CREDENTIALS }}'
+        -H 'accept: application/json, text/plain, */*'
+        -H 'content-type: application/json;charset=UTF-8'
+        --data-raw '{"apiKey":"_oZPBiZccGUlyt3c0ZpkYXBPo1JY1t81t3EJz_WdmrxdOlVKSe4ZWyta-ytlsZ3T","encryptedId":"YXBpbWF0aWNfNjE2MmE1OTRkODAwNWE1M2ZjM2VhMWUw","template":"CS_NET_STANDARD_LIB","repoName":"automation-demo-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/6162a594d8005a53fc3ea1e0/code-generations/616c4bf38264369d6031b000/generated-sdk","commitMessage":"spec updated","accountName":"apimatic"}' 
+        --compressed
