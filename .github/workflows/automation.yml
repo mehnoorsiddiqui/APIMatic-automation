@@ -1,44 +1,26 @@
 name: Update Portal
 
 on:
+  workflow_dispatch:  
   push:
     branches: 
-      - master
-      
-  workflow_dispatch:
+      - master 
+    paths: 
+      - 'spec/**'   
 
 jobs:
   update-portal:
     runs-on: ubuntu-latest
-    
-    env: 
-      API_ENTITY_ID: 61c08865a54579a7191c5c69
+
     steps:
     
-    - name : checkout-repo
-      uses: actions/checkout@v2
-      with:
-          ref: 'main'
-      id: checkout-repo 
+    - uses: actions/checkout@v1
+      name : checkout-repo
+      id: checkout-repo     
      
-
-    - name: Install zip action
-      uses: montudor/action-zip@v0.1.1    
-      
-    - name: install zip 
-      run: sudo apt-get install zip unzip
-      
-    - name: zip files
-      run: zip -r portal-input.zip *
-      working-directory: Specs
-
-    - name: list
-      run: zip -sf portal-input.zip
-      working-directory: Specs
-
     - name: inplace-import
-      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@Specs/portal-input.zip'
+      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -F 'file=@spec/APIMATIC Calculator-OpenApi3Json.json'
       
-    - name: publish-portal
-      run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:${{ secrets.CREDENTIALS }}'
-
+# Uncomment the following step to publish your Portal. The portal must first be published manually for this step to work successfully.
+#     - name: publish-portal
+#       run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
