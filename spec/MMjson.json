@@ -21,8 +21,8 @@
         "tags": [
           "Messages"
         ],
-        "summary": "CancelScheduledMessageiiiiiiiiii",
-        "description": "Cancel a     scheduled message that has not yet been delivered.\n\nA scheduled message can be cancelled by updating the status of a message\nfrom ```scheduled``` to ```cancelled```.",
+        "summary": "CancelScheduledMessage",
+        "description": "Cancel a testig   scheduled message that has not yet been delivered.\n\nA scheduled message can be cancelled by updating the status of a message\nfrom ```scheduled``` to ```cancelled```.",
         "operationId": "CancelScheduledMessage",
         "parameters": [
           {
