@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env: 
-      API_ENTITY_ID: 61c30f5aa54579a7191d2c57 
+      API_ENTITY_ID: 61c08865a54579a7191c5c69 
     steps:
     
     - name : checkout-repo
@@ -40,3 +40,6 @@ jobs:
       #run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@spec/portal-input.zip'
       
       run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
+
+    - name: publish-hosted-portal
+      run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/hosted-portal' -H 'Authorization:${{ secrets.CREDENTIALS }}'
