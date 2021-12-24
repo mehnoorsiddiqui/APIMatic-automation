@@ -1,29 +1,42 @@
 name: Update Portal
 
 on:
-  workflow_dispatch:  
   push:
     branches: 
-      - master 
-    paths:
-      - 'spec/**'  
+      - main
+      
+  workflow_dispatch:
 
 jobs:
   update-portal:
     runs-on: ubuntu-latest
-
+    
+    env: 
+      API_ENTITY_ID: 61c30f5aa54579a7191d2c57 
     steps:
     
-    - uses: actions/checkout@v1
-      name : checkout-repo
-      id: checkout-repo   
-      
-#     - name: import
-#       run: curl -X POST --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/import-via-file' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:multipart/form-data' -F 'file=@spec/APIMATIC Calculator-OpenApi3Json.json'
+    - name : checkout-repo
+      uses: actions/checkout@v2
+      with:
+          ref: 'main'
+      id: checkout-repo 
      
-    - name: inplace-import
-      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -F 'file=@spec/MMjson.json'
+
+    - name: Install zip action
+      uses: montudor/action-zip@v0.1.1    
       
-# Uncomment the following step to publish your Portal. The portal must first be published manually for this step to work successfully.
-#     - name: publish-portal
-#       run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
+    - name: install zip 
+      run: sudo apt-get install zip unzip
+      
+    - name: zip files
+      run: zip -r portal-input.zip *
+      working-directory: spec
+
+    - name: list
+      run: zip -sf portal-input.zip
+      working-directory: spec
+
+    - name: inplace-import
+      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@spec/portal-input.zip'
+      
+      
