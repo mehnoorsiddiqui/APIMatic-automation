@@ -37,6 +37,6 @@ jobs:
       working-directory: spec
 
     - name: inplace-import
-      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@spec/portal-input.zip'
+      #run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:${{ secrets.CREDENTIALS }}' -F 'file=@spec/portal-input.zip'
       
-      
+      run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@@spec/portal-input.zip'
