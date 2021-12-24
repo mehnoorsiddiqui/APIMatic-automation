@@ -42,4 +42,4 @@ jobs:
       run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
 
     - name: publish-hosted-portal
-      run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/hosted-portal' -H 'Authorization:${{ secrets.CREDENTIALS }}'
+      run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:${{ secrets.CREDENTIALS }}'
