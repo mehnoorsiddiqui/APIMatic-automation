@@ -44,8 +44,8 @@ jobs:
 #      #new
       run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
 
-#     - name: publish-portal
-#       run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
-
     - name: publish-portal
-      run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/61c08865a54579a7191c5c69/hosted-portal' -H 'Authorization:X-Auth-Key IGUDobSSfqzxuz9qhKpOvnQwUnZkYlZTeh10p_KKupuw77lLmnogDAfi295eIjj1'
+      run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
+
+#     - name: publish-portal
+#       run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/61c08865a54579a7191c5c69/hosted-portal' -H 'Authorization:X-Auth-Key IGUDobSSfqzxuz9qhKpOvnQwUnZkYlZTeh10p_KKupuw77lLmnogDAfi295eIjj1'
