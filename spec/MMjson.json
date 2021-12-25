@@ -28,7 +28,7 @@
           {
             "name": "messageId",
             "in": "path",
-            "description": "36 character UUID.",
+            "description": "35 character UUID.",
             "required": true,
             "style": "simple",
             "schema": {
