@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "MessageMediaaaa",
+    "title": "MessageMedia",
     "description": "The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging.",
     "contact": {
       "url": "https://developers.messagemedia.com/collaborate/slack/",
@@ -22,7 +22,7 @@
           "Messages"
         ],
         "summary": "CancelScheduledMessage",
-        "description": "Cancel scheduled message that has not yet been delivered.\n\nA scheduled message can be cancelled by updating the status of a message\nfrom ```scheduled``` to ```cancelled```.",
+        "description": "Cancel  that has not yet been delivered.\n\nA scheduled message can be cancelled by updating the status of a message\nfrom ```scheduled``` to ```cancelled```.",
         "operationId": "CancelScheduledMessage",
         "parameters": [
           {
