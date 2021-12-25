@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "MessageMedia",
+    "title": "MessageMediaaaa",
     "description": "The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging.",
     "contact": {
       "url": "https://developers.messagemedia.com/collaborate/slack/",
