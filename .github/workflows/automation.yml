@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env: 
-      API_ENTITY_ID: 61c08865a54579a7191c5c69 
+      API_ENTITY_ID: 61891ab0db5bcc21c0246b7c 
     steps:
     
     - name : checkout-repo
@@ -39,9 +39,9 @@ jobs:
 
     - name: inplace-import
 #     #old
-      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -F 'file=@spec/portal-input.zip'
+#      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -F 'file=@spec/portal-input.zip'
 #     #new
-    #  run: curl -X PUT --url 'https://apimaticio-test.azurewebsites.net/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
+      run: curl -X PUT --url 'https://apimatic.io/api/api-entities/${{ env.API_ENTITY_ID }}/import-via-file' -H 'Authorization:${{ secrets.CREDENTIALS }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
 
     - name: publish-portal
       run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
