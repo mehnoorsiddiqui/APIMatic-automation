@@ -47,5 +47,5 @@ jobs:
 #      run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
 
 #     - name: publish-portal
-      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/hosted-portal' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
+      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/hosted-portal' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
 
