@@ -41,7 +41,7 @@ jobs:
 #     #old
 #      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'content-type:multipart/form-data' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -F 'file=@spec/portal-input.zip'
 #     #new
-      run: curl -X PUT --url 'https://apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/import-via-file' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
+      run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/import-via-file' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/vnd.apimatic.apiEntity.full.v1+json' -F 'file=@spec/portal-input.zip'
 
     - name: publish-portal
       run: curl --location --request PUT 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/portal/publish' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
