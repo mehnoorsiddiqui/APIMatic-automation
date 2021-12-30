@@ -64,11 +64,11 @@ jobs:
       
     - name: Entity data
       id: encrypt_id
-      run: echo '::set-output name=encryptedId::'$(jq -r '.id' entity.json)
+      run: echo '::set-output name=encryptedId::'$(jq -r '.encryptedId' entity.json)
       
     - name: api key data
       id: key_data
-      run: echo '::set-output name=apiKey::'$(jq -r '.id' entity.json)
+      run: echo '::set-output name=apiKey::'$(jq -r '.apiKey' entity.json)
       
    
     - name: publish-sdk
