@@ -49,15 +49,27 @@ jobs:
 #     - name: publish-portal
       run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/hosted-portal' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
    
-    # Use cURL to fetch the given URL, saving the response to `data.json`
+    - name: fetch api entity
+      run: curl -X GET --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -o entity.json
+   
+   # Use cURL to fetch the given URL, saving the response to `data.json`
     - name: Fetch gnerate sdk id 
      # curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization: X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
       run: curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB' -o data.json
 
-      # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
+      # Optionally, use `jq` to pull one or more fields from the JSON to include in the publish sdk endpoint
     - name: Parse data
       id: parse_data
       run: echo '::set-output name=id::'$(jq -r '.id' data.json)
+      
+    - name: Entity data
+      id: encrypt_id
+      run: echo '::set-output name=encryptedId::'$(jq -r '.id' entity.json)
+      
+    - name: api key data
+      id: key_data
+      run: echo '::set-output name=apiKey::'$(jq -r '.id' entity.json)
+      
    
     - name: publish-sdk
       run : >-
@@ -65,5 +77,5 @@ jobs:
         -H 'Authorization:${{ secrets.CREDENTIALS }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":"JmUtkUQeXEU4CTTRbtcyUlZoA8HXQ-AGRpe8bbFucXWhrRSJmkgjUeiW7eg_R39v","encryptedId":"YXBpbWF0aWNfNjE4OTFhYjBkYjViY2MyMWMwMjQ2Yjdj","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":${{ steps.key_data.outputs.apiKey }},"encryptedId":${{ steps.encrypt_id.outputs.encryptedId }},"template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
