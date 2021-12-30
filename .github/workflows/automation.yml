@@ -48,11 +48,22 @@ jobs:
 
 #     - name: publish-portal
       run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/hosted-portal' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
+   
+    # Use cURL to fetch the given URL, saving the response to `data.json`
+    - name: Fetch gnerate sdk id 
+      run: curl "<URL YOU WANT TO CHECK HERE>" -o data.json
+      curl -X POST --url 'https://apimatic.io/api/api-entities/61c5ce1e7e216c3fb066cfac/code-generations/generate' -H 'Authorization: X-Auth-Key IGUDobSSfqzxuz9qhKpOvnQwUnZkYlZTeh10p_KKupuw77lLmnogDAfi295eIjj1' -H 'Accept: application/json' -H 'Content-Type: application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
+
+      # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
+    - name: Parse data
+      id: parse_data
+      run: echo '::set-output name=someField::'$(jq -r '.someField' data.json)
+   
     - name: publish-sdk
       run : >-
         curl 'https://www.apimatic.io/api/GitDeploy/Deploy'
         -H 'Authorization:${{ secrets.CREDENTIALS }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":"_oZPBiZccGUlyt3c0ZpkYXBPo1JY1t81t3EJz_WdmrxdOlVKSe4ZWyta-ytlsZ3T","encryptedId":"YXBpbWF0aWNfNjE2MmE1OTRkODAwNWE1M2ZjM2VhMWUw","template":"CS_NET_STANDARD_LIB","repoName":"automation-demo-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/6162a594d8005a53fc3ea1e0/code-generations/616c4bf38264369d6031b000/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":"61891ab0db5bcc21c0246b7c","encryptedId":"","template":"CS_NET_STANDARD_LIB","repoName":"automation-demo-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/6162a594d8005a53fc3ea1e0/code-generations/616c4bf38264369d6031b000/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
