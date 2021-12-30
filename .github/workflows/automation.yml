@@ -51,13 +51,14 @@ jobs:
    
     # Use cURL to fetch the given URL, saving the response to `data.json`
     - name: Fetch gnerate sdk id 
-      run: curl "<URL YOU WANT TO CHECK HERE>" -o data.json
-      curl -X POST --url 'https://apimatic.io/api/api-entities/61c5ce1e7e216c3fb066cfac/code-generations/generate' -H 'Authorization: X-Auth-Key IGUDobSSfqzxuz9qhKpOvnQwUnZkYlZTeh10p_KKupuw77lLmnogDAfi295eIjj1' -H 'Accept: application/json' -H 'Content-Type: application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
+     # curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization: X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
+      run: curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization: X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
+       -o data.json
 
       # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
     - name: Parse data
       id: parse_data
-      run: echo '::set-output name=someField::'$(jq -r '.someField' data.json)
+      run: echo '::set-output name=id::'$(jq -r '.id' data.json)
    
     - name: publish-sdk
       run : >-
