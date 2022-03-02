@@ -77,5 +77,5 @@ jobs:
         -H 'Authorization:${{ secrets.CREDENTIALS }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":${{ steps.key_data.outputs.apiKey }},"encryptedId":${{ steps.encrypt_id.outputs.encryptedId }},"template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":${{ steps.key_data.outputs.apiKey }},"encryptedId":${{ steps.encrypt_id.outputs.encryptedId }},"template":"CS_NET_STANDARD_LIB","repoName":"automation-MsgM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
