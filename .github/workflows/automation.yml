@@ -67,9 +67,9 @@ jobs:
       id: encrypt_id
       run: echo '::set-output name=encryptedId::'$(jq -r '.encryptedId' entity.json)
       
-#     - name: api key data
-#       id: key_data
-#       run: echo '::set-output name=apiKey::'$(jq -r '.apiKey' entity.json)
+    - name: api key data
+      id: key_data
+      run: echo '::set-output name=apiKey::'$(jq -r '.apiKey' entity.json)
       
    
     - name: publish-sdk
@@ -78,5 +78,5 @@ jobs:
         -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":"JmUtkUQeXEU4CTTRbtcyUlZoA8HXQ-AGRpe8bbFucXWhrRSJmkgjUeiW7eg_R39v","encryptedId":"${{ steps.encrypt_id.outputs.encryptedId }}","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":"${{ steps.key_data.outputs.apiKey }}","encryptedId":"${{ steps.encrypt_id.outputs.encryptedId }}","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
