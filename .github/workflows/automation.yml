@@ -77,5 +77,5 @@ jobs:
         -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":"JmUtkUQeXEU4CTTRbtcyUlZoA8HXQ-AGRpe8bbFucXWhrRSJmkgjUeiW7eg_R39v","encryptedId":"YXBpbWF0aWNfNjE4OTFhYjBkYjViY2MyMWMwMjQ2Yjdj","template":"CS_NET_STANDARD_LIB","repoName":"automation-MsgM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":"JmUtkUQeXEU4CTTRbtcyUlZoA8HXQ-AGRpe8bbFucXWhrRSJmkgjUeiW7eg_R39v","encryptedId":"YXBpbWF0aWNfNjE4OTFhYjBkYjViY2MyMWMwMjQ2Yjdj","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
