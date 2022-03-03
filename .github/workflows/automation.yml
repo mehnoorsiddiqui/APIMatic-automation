@@ -50,9 +50,10 @@ jobs:
       run: curl -X PUT --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/hosted-portal' -H 'Content-Length:0' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
    
     - name: fetch api entity
-      run: curl -X GET --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -o entity.json
-   
-   # Use cURL to fetch the given URL, saving the response to `data.json`
+   #   run: curl -X GET --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -o entity.json
+      run: curl --location --request GET 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}' --header 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' --header 'Accept:application/json' -o entity.json
+
+# Use cURL to fetch the given URL, saving the response to `data.json`
     - name: Fetch gnerate sdk id 
      # curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization: X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB'
       run: curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB' -o data.json
