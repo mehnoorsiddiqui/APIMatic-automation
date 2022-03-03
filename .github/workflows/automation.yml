@@ -13,8 +13,8 @@ jobs:
   update-portal:
     runs-on: ubuntu-latest
     
-    env: 
-      API_ENTITY_ID: 61891ab0db5bcc21c0246b7c 
+#     env: 
+#       API_ENTITY_ID: 61891ab0db5bcc21c0246b7c 
     steps:
     
     - name : checkout-repo
