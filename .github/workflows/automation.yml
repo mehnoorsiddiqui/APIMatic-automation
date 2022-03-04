@@ -57,8 +57,8 @@ jobs:
       run: curl -X POST --url 'https://www.apimatic.io/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/generate' -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}' -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' -d 'template=CS_NET_STANDARD_LIB' -o data.json
 
       # Optionally, use `jq` to pull one or more fields from the JSON to include in the publish sdk endpoint
-    - name: Parse data
-      id: parse_data
+    - name: Sdk data
+      id: sdk_data
       run: echo '::set-output name=id::'$(jq -r '.id' data.json)
       
     - name: Entity data
@@ -76,5 +76,5 @@ jobs:
         -H 'Authorization:X-Auth-Key ${{ secrets.API_KEY }}'
         -H 'accept: application/json, text/plain, */*'
         -H 'content-type: application/json;charset=UTF-8'
-        --data-raw '{"apiKey":"${{ steps.key_data.outputs.apiKey }}","encryptedId":"${{ steps.encrypt_id.outputs.encryptedId }}","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.parse_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
+        --data-raw '{"apiKey":"${{ steps.key_data.outputs.apiKey }}","encryptedId":"${{ steps.encrypt_id.outputs.encryptedId }}","template":"CS_NET_STANDARD_LIB","repoName":"automation-MM-sdk","branchName":"CodeGen-CS","downloadId":"/api/api-entities/${{ secrets.API_ENTITY_ID }}/code-generations/${{ steps.sdk_data.outputs.id }}/generated-sdk","commitMessage":"spec updated","accountName":"mehnoorsiddiqui"}' 
         --compressed
