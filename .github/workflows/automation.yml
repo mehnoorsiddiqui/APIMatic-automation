@@ -21,8 +21,8 @@ jobs:
           ref: 'master'
       id: checkout-repo 
      
-    - name: Install zip action
-      uses: montudor/action-zip@v0.1.1    
+#     - name: Install zip action
+#       uses: montudor/action-zip@v0.1.1    
       
     - name: install zip 
       run: sudo apt-get install zip unzip
